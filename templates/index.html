@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+<!-- 🔥 HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Explore mundos através dos livros</h1>
+        <p>Descubra histórias que transformam sua forma de pensar</p>
+
+        <a href="#produtos" class="btn-hero destaque-btn">Explorar livros</a>
+    </div>
+</section>
+
+<!-- 📚 SOBRE -->
+<section class="sobre">
+    <div class="container">
+        <p class="sobre-texto">
+            <strong>Capítulo & Cia</strong> conecta você a livros que transformam aprendizado em experiência.
+        </p>
+    </div>
+</section>
+
+<!-- 🔎 BUSCA -->
+<section class="top-bar">
+    <div class="container">
+
+        <form method="GET" class="search-form">
+
+            <input
+                type="text"
+                name="busca"
+                placeholder="Buscar livros..."
+                class="search"
+                value="{{ request.GET.busca|default:'' }}"
+            >
+
+            <select name="categoria" class="filter">
+                <option value="">Todas as categorias</option>
+
+                {% if categorias %}
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}"
+                            {% if request.GET.categoria == categoria.id|stringformat:"s" %}selected{% endif %}>
+                            {{ categoria.nome }}
+                        </option>
+                    {% endfor %}
+                {% endif %}
+
+            </select>
+
+            <button type="submit" class="btn-search">Buscar</button>
+        </form>
+
+    </div>
+</section>
+
+<!-- 📚 PRODUTOS -->
+<section class="produtos" id="produtos">
+    <div class="container grid">
+
+        {% for livro in livros %}
+        <article class="card" data-id="{{ livro.id }}">
+
+            <span class="badge">Novo</span>
+
+            <button type="button" class="fav-btn" onclick="toggleFav({{ livro.id }})">
+                ❤️
+            </button>
+
+            <div class="card-img">
+                {% if livro.imagem %}
+                    <img src="{{ livro.imagem.url }}" alt="{{ livro.titulo }}">
+                {% else %}
+                    <img src="{% static 'img/livro-padrao.jpg' %}" alt="Livro">
+                {% endif %}
+            </div>
+
+            <div class="card-body">
+
+                <h3 class="titulo">{{ livro.titulo }}</h3>
+
+                <div class="stars">⭐⭐⭐⭐☆</div>
+
+                <p class="autor">
+                    {{ livro.autor.nome|default:"Autor desconhecido" }}
+                </p>
+
+                <p class="descricao">
+                    {{ livro.descricao|default:"Sem descrição disponível." }}
+                </p>
+
+                <p class="price">R$ {{ livro.preco }}</p>
+
+                <div class="acoes">
+
+                    <a href="{% url 'detalhe_livro' livro.id %}" class="btn-outline">
+                        Ver detalhes
+                    </a>
+
+                    <button type="button" class="btn-cart">🛒 Carrinho</button>
+
+                </div>
+
+            </div>
+        </article>
+
+        {% empty %}
+            <p class="sem-resultados">Nenhum livro encontrado.</p>
+        {% endfor %}
+
+    </div>
+</section>
+
+<!-- ⚙️ SCRIPTS -->
+<script>
+document.querySelectorAll(".btn-cart").forEach(btn => {
+    btn.addEventListener("click", () => {
+        btn.innerText = "Adicionado ✔";
+        setTimeout(() => btn.innerText = "🛒 Carrinho", 1200);
+    });
+});
+
+function getFavs() {
+    return JSON.parse(localStorage.getItem("favoritos") || "[]");
+}
+
+function saveFavs(favs) {
+    localStorage.setItem("favoritos", JSON.stringify(favs));
+}
+
+function toggleFav(id) {
+    let favs = getFavs();
+    id = Number(id);
+
+    if (favs.includes(id)) {
+        favs = favs.filter(f => f !== id);
+    } else {
+        favs.push(id);
+    }
+
+    saveFavs(favs);
+    updateFavUI();
+}
+
+function updateFavUI() {
+    const favs = getFavs();
+
+    document.querySelectorAll(".card").forEach(card => {
+        const id = Number(card.dataset.id);
+        const btn = card.querySelector(".fav-btn");
+
+        if (!btn) return;
+
+        btn.classList.toggle("active", favs.includes(id));
+    });
+}
+
+document.addEventListener("DOMContentLoaded", updateFavUI);
+</script>
+
+{% endblock %}

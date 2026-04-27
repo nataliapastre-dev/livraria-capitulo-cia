@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Realizar Empréstimo</title>
+</head>
+<body>
+
+    <h2>Realizar Empréstimo</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Emprestar</button>
+    </form>
+
+    {% if form.errors %}
+        <div style="color: red;">
+            <strong>Erro:</strong> {{ form.errors }}
+        </div>
+    {% endif %}
+
+</body>
+</html>

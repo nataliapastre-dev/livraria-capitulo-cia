@@ -1,0 +1,377 @@
+/* =========================
+   RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================
+   VARIÁVEIS
+========================= */
+:root {
+    --primary: #4f46e5;
+    --primary-dark: #4338ca;
+    --dark: #0f172a;
+    --dark-2: #1e293b;
+    --light: #eef2f7;
+    --text: #111827;
+    --gray: #6b7280;
+    --white: #ffffff;
+    --shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   BASE
+========================= */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--light);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* =========================
+   HEADER
+========================= */
+.header {
+    background: linear-gradient(90deg, var(--dark), var(--dark-2));
+    color: white;
+    padding: 18px 30px;
+    box-shadow: var(--shadow);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 30px;
+}
+
+/* LOGO */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    font-size: 34px;
+}
+
+.logo strong {
+    font-size: 22px;
+    color: #fff;
+}
+
+.sub-logo {
+    font-size: 20px;
+    color: #f1f5f9;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    opacity: 0.95;
+}
+/* NAV */
+.header-content a {
+    color: #ffffff;
+    margin-left: 18px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.header-content a:hover {
+    color: #a5b4fc;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+    height: 380px;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+                url("/static/img/banner.jpg") center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.hero h1 {
+    font-size: 44px;
+    font-weight: 800;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.btn-hero {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 22px;
+    background: var(--primary);
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-hero:hover {
+    background: var(--primary-dark);
+}
+
+/* =========================
+   SOBRE
+========================= */
+.sobre {
+    margin-top: -40px;
+}
+
+.sobre-texto {
+    background: var(--primary);
+    color: white;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.7;
+    box-shadow: var(--shadow);
+}
+
+/* =========================
+   BUSCA
+========================= */
+.top-bar {
+    margin: 40px 0;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search,
+.filter {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    width: 220px;
+    outline: none;
+}
+
+.btn-search {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-search:hover {
+    background: var(--primary-dark);
+}
+
+/* =========================
+   CARDS (LIVROS)
+========================= */
+.produtos .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+    padding: 40px 0;
+}
+
+.card {
+    position: relative;
+    background: var(--white);
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: var(--shadow);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+.card-img {
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-img img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.titulo {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.autor {
+    font-size: 14px;
+    color: var(--gray);
+    margin-top: 5px;
+}
+
+.descricao {
+    font-size: 15px;
+    color: #374151;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary);
+    margin-top: 10px;
+}
+
+.acoes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    gap: 8px;
+}
+
+.btn-outline {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-cart {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 7px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-cart:hover {
+    background: var(--primary-dark);
+}
+
+/* =========================
+   CONTATO (REMOVIDO VISUAL PESADO)
+========================= */
+.contato {
+    display: none;
+}
+
+/* =========================
+   FOOTER CENTRALIZADO
+========================= */
+.footer {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 70px 20px 40px;
+    text-align: center;
+}
+
+.footer {
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* 👈 centraliza tudo */
+    justify-content: center;
+    gap: 25px;
+    text-align: center;    /* 👈 texto centralizado */
+    padding: 0 20px;
+}
+.footer-box p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #cbd5e1;
+    margin: 4px 0;
+}
+
+.footer-box h3 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.footer-box h4 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.footer-box p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #cbd5e1;
+}
+
+.footer-bottom {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #94a3b8;
+    border-top: 1px solid #334155;
+    padding-top: 15px;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 768px) {
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .search-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search,
+    .filter {
+        width: 100%;
+    }
+
+    .header-content {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}

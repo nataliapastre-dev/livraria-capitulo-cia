@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Capítulo & Cia | Livraria Online</title>
+
+    <meta name="description" content="Livraria online com títulos que impulsionam conhecimento, carreira e desenvolvimento pessoal.">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container header-content">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <span class="logo-icon">📚</span>
+            <div>
+                <strong>Capítulo & Cia</strong>
+                <span class="sub-logo">Sua livraria online</span>
+            </div>
+        </div>
+
+        <!-- NAVBAR -->
+        <nav class="nav">
+            <a href="{% url 'home' %}">Início</a>
+
+            <!-- só funciona se existir no urls.py -->
+            <a href="{% url 'lista_livros' %}">Livros</a>
+
+            <a href="#contato">Contato</a>
+        </nav>
+
+    </div>
+</header>
+
+<!-- CONTEÚDO -->
+<main class="main-content">
+    {% block body %}
+    {% endblock %}
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="container footer-grid">
+
+        <!-- SOBRE -->
+        <div class="footer-box">
+            <h3>📚 Capítulo & Cia</h3>
+            <p>
+                Conectando você ao conhecimento e ao crescimento através da leitura.
+            </p>
+        </div>
+
+        <!-- CONTATO -->
+        <div class="footer-box" id="contato">
+            <h4>Contato</h4>
+            <p>Email: contato@capitulocia.com</p>
+            <p>Telefone: (16) 3333-4455</p>
+            <p>Endereço: Rua das Letras, 123 - Centro, Araraquara/SP</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 Capítulo & Cia. Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+</body>
+</html>
