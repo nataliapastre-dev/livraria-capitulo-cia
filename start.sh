@@ -8,7 +8,7 @@ pip install -r requirements.txt
 NGINX_CONF="/etc/nginx/sites-available/livraria"
 PROJECT_PATH="/var/www/livraria"
 
-sudo bash -c "cat > $NGINX_CONF" <<EOF
+bash -c "cat > $NGINX_CONF" <<EOF
 server {
     listen 80;
     server_name _;
@@ -25,7 +25,7 @@ server {
 }
 EOF
 
-sudo ln -sf $NGINX_CONF /etc/nginx/sites-enabled/
+ln -sf $NGINX_CONF /etc/nginx/sites-enabled/
 
-sudo nginx -t
+nginx -t
 

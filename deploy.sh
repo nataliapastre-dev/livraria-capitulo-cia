@@ -1,7 +1,7 @@
 #!/bin/bash
 python manage.py collectstatic --noinput
 
-sudo systemctl restart nginx
+systemctl restart nginx
 
 pkill gunicorn || true
 
