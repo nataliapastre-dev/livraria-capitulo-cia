@@ -2,7 +2,7 @@
 set -e
 
 pip install -r requirements.txt
-
+mkdir -p /etc/nginx/sites-available/livraria
 
 
 NGINX_CONF="/etc/nginx/sites-available/livraria"
