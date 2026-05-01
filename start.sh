@@ -1,31 +1,98 @@
-#!/bin/bash
-set -e
+from pathlib import Path
+import os
 
-pip install -r requirements.txt
-mkdir -p /etc/nginx/sites-available/livraria
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = 'django-insecure-bcfd1i_but4t%vst+s7ay)uiwe8f7$jiht@+exo5zc_gi@v9uv'
+
+DEBUG = False
+
+ALLOWED_HOSTS = ['*']
 
 
-NGINX_CONF="/etc/nginx/sites-available/livraria"
-PROJECT_PATH="/var/www/livraria"
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 
-bash -c "cat > $NGINX_CONF" <<EOF
-server {
-    listen 80;
-    server_name _;
+    'cadastro',
+    'usuario',
+    'emprestimo',
+]
 
-    location /static/ {
-        alias $PROJECT_PATH/static/;
-    }
 
-    location / {
-        proxy_pass http://127.0.0.1:8000;
-        proxy_set_header Host \$host;
-        proxy_set_header X-Real-IP \$remote_addr;
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+
+ROOT_URLCONF = 'Teste.urls'
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+
+WSGI_APPLICATION = 'Teste.wsgi.application'
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-EOF
 
-ln -sf $NGINX_CONF /etc/nginx/sites-enabled/
 
-nginx -t
+LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
 
+
+# =============================
+# STATIC (CORRETO)
+# =============================
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+# =============================
+# MEDIA
+# =============================
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
