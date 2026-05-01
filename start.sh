@@ -1,98 +1,11 @@
-from pathlib import Path
-import os
+#!/usr/bin/env bash
+set -e
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+echo "Instalando dependências..."
+pip install -r requirements.txt
 
-SECRET_KEY = 'django-insecure-bcfd1i_but4t%vst+s7ay)uiwe8f7$jiht@+exo5zc_gi@v9uv'
+echo "Coletando arquivos estáticos..."
+python manage.py collectstatic --noinput
 
-DEBUG = False
-
-ALLOWED_HOSTS = ['*']
-
-
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    'cadastro',
-    'usuario',
-    'emprestimo',
-]
-
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-
-ROOT_URLCONF = 'Teste.urls'
-
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-
-WSGI_APPLICATION = 'Teste.wsgi.application'
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
-LANGUAGE_CODE = 'pt-br'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
-
-
-# =============================
-# STATIC (CORRETO)
-# =============================
-
-STATIC_URL = '/static/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-# =============================
-# MEDIA
-# =============================
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+echo "Iniciando aplicação..."
+gunicorn Teste.wsgi:application --bind 0.0.0.0:$PORT
